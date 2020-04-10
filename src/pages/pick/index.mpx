@@ -35,8 +35,8 @@
           main-active-index="{{ mainActiveIndex }}"
           active-id="{{ activeId }}"
           max="{{ max }}"
-          wx:click-nav="onClickNav"
-          wx:click-item="onClickItem"
+          bind:click-nav="onClickNav"
+          bind:click-item="onClickItem"
         />
     </view>
 
@@ -107,7 +107,6 @@
         console.log('什么东西',detail);
           this.mainActiveIndex = detail.index || 0
       },
-
       onClickItem({ detail = {} }) {
         const { activeId } = this.data;
 
@@ -118,7 +117,7 @@
           activeId.push(detail.id);
         }
 
-        this.activeId = activeId
+         this.setData({ activeId });
       }
 
     }

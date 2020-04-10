@@ -1,14 +1,33 @@
 <template>
 <view>
-  商品页
+      <view  wx:for="{{initData}}" wx:for-item="item" wx:for-index="index" wx:key="index">
+          <text>{{item.name}}</text>
+      </view>
   </view>
 </template>
 
 <script>
-  import { createPage } from '@mpxjs/core'
+  import mpx,{ createPage } from '@mpxjs/core'
 
   createPage({
-    onLoad () {}
+    onLoad () {
+      this.init();
+    },
+    data:{
+      initData:[]
+    },
+    methods:{
+      init(){
+        let that = this;
+        mpx.getStorage({
+            key: 'initData',
+            success (res) {
+              console.log(res.data);
+              that.initData = res.data;
+            }
+          })
+      }
+    }
   })
 </script>
 

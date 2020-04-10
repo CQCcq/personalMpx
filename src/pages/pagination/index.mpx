@@ -1,16 +1,68 @@
+
 <template>
-<view>
-   <view>
-       分页
-   </view>
+<view class="page_pagination">
+    <view class="pageList">
+      <scroll-view
+          class="scrollView" 
+          scroll-x="{{scrollX}}"
+          scroll-y="{{scrollY}}"
+          refresher-enabled="{{refresherenabled}}"
+          refresher-threshold="{{30}}"
+          refresher-default-style="none"
+          refresher-background="lightgreen"
+          bindscrolltoupper="bindscrolltoupper">
+          <view wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="listPic">
+          <view>
+          <image wx:key='index' style='width:60rpx;height:60rpx' data-index="{{index}}" src='{{item.img1v1Url}}'/>
+          </view>
+          <text>
+          {{item.name}}
+          </text>
+        </view>
+      </scroll-view>
+      </view>
   </view>
 </template>
 
 <script>
-  import { createPage } from '@mpxjs/core'
+  import mpx,{ createPage } from '@mpxjs/core'
 
   createPage({
-    onLoad () {}
+    onLoad () {
+      this.getList();
+    },
+    data:{
+      scrollX:false,
+      scrollY:true,
+      refresherenabled:true,
+      listData:[]
+    },
+    methods:{
+       getList(){
+            let that = this;
+            console.log('获取分页');
+            mpx.request({
+            url: 'http://localhost:3000/artist/list',
+            method:'get',
+            data: {
+                cat:1001,
+                limit:10
+            },  
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success (res) {
+              if(Array.isArray(res.data.artists) && res.data.artists.length > 0){
+                  that.listData = res.data.artists
+                  console.log(that.listData);
+              }
+            }
+          })
+      },
+      bindscrolltoupper(e){
+        console.log("触顶",e);
+      }
+    }
   })
 </script>
 
@@ -21,3 +73,26 @@
     }
   }
 </script>
+
+<style lang="stylus">
+  page
+    width 100%
+    height 100%
+  .page_pagination
+    width calc(100% - 50rpx)
+    height calc(100% - 20rpx)
+    padding 10rpx 25rpx
+  .listPic
+    width: 100%
+    height: 160rpx
+    background-color: rgba(205, 201, 176, 0.9)
+    margin: 0rpx 0rpx 10rpx 0rpx
+    padding: 15rpx 0rpx
+    border-radius: 10rpx
+  .pageList
+    margin-top 20rpx
+  .scrollView
+    width 100%
+    height 900rpx
+</style>
+

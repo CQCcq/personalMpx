@@ -52,6 +52,12 @@
   import mpx,{ createComponent } from '@mpxjs/core'
 
   createComponent({
+    attached () {
+    this.init();
+  },
+     onShow(){
+        // this.init();
+     },
     data: {
       listData: ['手机', '电视', '电脑'],
       indicatorDots: true,
@@ -65,6 +71,22 @@
       vertical: false
     },
     methods:{
+      init(){
+        console.log('存储');
+        let initList = []; let initObj = {};
+        for(let i = 1; i<=5000;i++){
+          initObj = {};
+          initObj.id = i;
+          initObj.name = '测试' + i;
+          initList.push(initObj);
+        }
+
+        mpx.setStorage({
+          key:"initData",
+          data:initList
+        })
+      },
+
       handleTap(){
        mpx.navigateTo({
         url: '../pages/pagination/index',
