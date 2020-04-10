@@ -1,0 +1,15 @@
+{
+  "compileType": "miniprogram",
+  "setting": {
+    "newFeature": true,
+    "urlCheck": true,
+    "es6": false,
+    "postcss": true,
+    "minified": false,
+    "autoAudits": false
+  },
+  "appid": "wx0b5d041ea0470792",
+  "projectname": "project-one",
+  "description": "测试用例",
+  "condition": {}
+}

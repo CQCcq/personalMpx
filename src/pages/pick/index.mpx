@@ -1,0 +1,150 @@
+<template>
+<view class="page">
+       
+       
+  <van-slider
+  value="{{currentValue}}"
+  bar-height="4px"
+  active-color="#ee0a24"
+  />
+
+   <view class="picker">
+      <van-picker columns="{{ columns }}" bindchange="onChange" />
+   </view>
+
+   <view class="picker">
+     <van-rate
+      value="{{ pickerRate }}"
+      size="{{ 25 }}"
+      allow-half
+      color="#ee0a24"
+      void-color="#eee"
+      void-icon="star"
+      bind:change="onRate"
+    />
+   </view>
+
+   <view class="picker" style="height: 80rpx">
+     <van-dialog id="van-dialog" />
+    <van-button plain type="primary" bindtap="getList">弹框提示</v-button>
+   </view>
+
+    <view > 
+       <van-tree-select
+          items="{{ items }}"
+          main-active-index="{{ mainActiveIndex }}"
+          active-id="{{ activeId }}"
+          max="{{ max }}"
+          bind:click-nav="onClickNav"
+          bind:click-item="onClickItem"
+        />
+    </view>
+
+  </view>
+</template>
+
+<script>
+  import { createPage } from '@mpxjs/core'
+  import Toast from 'vant-weapp/dist/toast/toast'
+  import Dialog from 'vant-weapp/dist/dialog/dialog'
+
+  createPage({
+    data: {
+        currentValue: 50,
+         columns: ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+         pickerRate:3,
+        mainActiveIndex: 0,
+        activeId: [],
+        max: 2,
+        items:[
+           {
+            // 导航名称
+            text: '所有城市',
+            // 禁用选项
+            disabled: false,
+            // 该导航下所有的可选项
+            children: [
+              {
+                // 名称
+                text: '温州',
+                // id，作为匹配选中状态的标识
+                id: 1,
+                // 禁用选项
+                disabled: false
+              },
+              {
+                text: '杭州',
+                id: 2
+              }
+            ]
+          }
+        ]
+      },
+    onLoad () {},
+    methods:{
+      onDrag(event) {
+     
+      this.currentValue = event.detail.value
+    
+      },
+      onChange(event) {
+        console.log('多少',event);
+      const { picker, value, index } = event.detail;
+      Toast(`当前值：${value}, 当前索引：${index}`);
+    },
+    onRate(event){
+        this.pickerRate = event.detail
+    },
+    getList(){
+      Dialog.alert({
+        title: '标题',
+        message: '弹窗内容'
+        }).then(() => {
+        // on close
+        });
+    },
+      onClickNav({ detail = {} }) {
+        console.log('什么东西',detail);
+          this.mainActiveIndex = detail.index || 0
+      },
+
+      onClickItem({ detail = {} }) {
+        const { activeId } = this.data;
+
+        const index = activeId.indexOf(detail.id);
+        if (index > -1) {
+          activeId.splice(index, 1);
+        } else {
+          activeId.push(detail.id);
+        }
+
+        this.activeId = activeId
+      }
+
+    }
+  })
+</script>
+
+<script name="json">
+  module.exports = {
+    usingComponents: {
+      "van-slider": "vant-weapp/dist/slider/index",
+      "van-picker": "vant-weapp/dist/picker/index",
+      "van-rate": "vant-weapp/dist/rate/index",
+      "van-dialog": "vant-weapp/dist/dialog/index",
+      "van-button": "vant-weapp/dist/button/index",
+      "van-tree-select": "vant-weapp/dist/tree-select/index"
+    }
+  }
+</script>
+
+<style lang="stylus">
+    page
+      width: 100%
+      height 100%
+    .page
+      padding 20rpx 20rpx
+    .picker
+      padding 30rpx 0rpx
+      background-color #dddddd
+</style>

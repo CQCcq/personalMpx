@@ -1,0 +1,53 @@
+<script>
+  import mpx from '@mpxjs/core'
+  import apiProxy from '@mpxjs/api-proxy'
+
+  mpx.use(apiProxy, { usePromise: true })
+  // app.js
+  App({})
+</script>
+
+<style>
+
+</style>
+
+<script name="json">
+ module.exports = {
+   pages: [
+      './pages/index',
+      './pages/login/index',
+      './pages/personal/index',
+      './pages/list/index',
+      './pages/pagination/index',
+      './pages/form/index',
+       './pages/pick/index'
+   ],
+   tabBar: {
+     list:[
+      {
+        pagePath: "pages/index",
+        iconPath: "img/index.png",
+				selectedIconPath: "img/selectIndex.png",
+        text: "首页"
+      },
+      {
+        pagePath: "pages/login/index",
+        iconPath: "img/shop.png",
+				selectedIconPath: "img/selectShop.png",
+        text:"商品页"
+      },
+      {
+      
+        pagePath:"pages/personal/index",
+        iconPath: "img/personal.png",
+				selectedIconPath: "img/selectPersonal.png",
+        text: "个人"
+      }
+
+     ]
+   },
+   sitemapLocation:'../../sitemap.json'
+ }
+</script>
+//<!--JSON还可通过以下形式编写-->
+//<!-- // 可以写注释，通过defs注入的常量做一些判断之类的操作 -->

@@ -1,0 +1,80 @@
+<template>
+<view class="page">
+      <view>
+            <v-button plain type="primary" bindtap="getList">列表页</v-button>
+            <view class="pageList">
+                <view wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="listPic">
+                    <view>
+                    <image wx:key='index' style='width:60rpx;height:60rpx' data-index="{{index}}" src='{{item.img1v1Url}}'/>
+                    </view>
+                    <text>
+                    {{item.name}}
+                    </text>
+                </view>
+            </view>
+      </view>
+  </view>
+</template>
+
+<script>
+  import mpx,{ createPage } from '@mpxjs/core'
+
+  createPage({
+    data: {
+      listData:[]
+    },
+
+    onLoad () {},
+
+        methods:{
+          getList(){
+            let that = this;
+            console.log('获取分页');
+            mpx.request({
+            url: 'http://localhost:3000/artist/list',
+            method:'get',
+            data: {
+                cat:1001,
+                limit:100
+            },  
+            header: {
+              'content-type': 'application/json' // 默认值
+            },
+            success (res) {
+              if(Array.isArray(res.data.artists) && res.data.artists.length > 0){
+                  that.listData = res.data.artists
+                  console.log(that.listData);
+              }
+            }
+          })
+      }
+    }
+  })
+</script>
+
+<script name="json">
+  module.exports = {
+    usingComponents: {
+      "v-button": "vant-weapp/dist/button/index"
+    }
+  }
+</script>
+
+<style lang="stylus">
+  page
+    width 100%
+    height 100%
+  .page
+    width calc(100% - 50rpx)
+    height calc(100% - 20rpx)
+    padding 10rpx 25rpx
+  .listPic
+    width: 100%
+    height: 160rpx
+    background-color: rgba(205, 201, 176, 0.9)
+    margin: 0rpx 0rpx 10rpx 0rpx
+    padding: 15rpx 0rpx
+    border-radius: 10rpx
+  .pageList
+    margin-top 20rpx
+</style>

@@ -1,0 +1,126 @@
+<template>
+  <view class="list">
+    <!-- <view wx:for="{{listData}}" wx:key="index">{{item}}</view> -->
+    <swiper indicator-dots="{{indicatorDots}}"
+        indicator-color="{{indicatorColor}}"
+        indicator-active-color="{{indicatorActiveColor}}"
+        autoplay="{{autoplay}}"
+        current="{{current}}"
+        interval="{{interval}}"
+        duration="{{duration}}"
+        circular="{{circular}}"
+        vertical="{{vertical}}"
+        >
+          <swiper-item>
+            <image style='width:100%' src='../img/scene1.jpg'/>
+          </swiper-item>
+            <swiper-item>
+            <image style='width:100%' src='../img/scene2.jpg'/>
+          </swiper-item>
+            <swiper-item>
+             <image style='width:100%' src='../img/scene3.jpg'/>
+          </swiper-item>
+           <swiper-item>
+             <image style='width:100%' src='../img/scene4.jpg'/>
+          </swiper-item>
+           <swiper-item>
+             <image style='width:100%' src='../img/scene5.jpg'/>
+          </swiper-item>
+    </swiper>
+    <view class='page-list'>
+      <view class='page-list-1'>
+        <view class='page-list-2' bindtap="handleList"></view>
+         <text class='page-list-font'>列表</text>
+      </view>
+       <view class='page-list-1'>
+         <view class='page-list-2' bindtap="handleTap"></view>
+           <text class='page-list-font'>分页</text>
+      </view>
+       <view class='page-list-1'>
+         <view class='page-list-2' bindtap="handleForm"></view>
+           <text class='page-list-font'>表单</text>
+      </view>
+       <view class='page-list-1'>
+         <view class='page-list-2' bindtap="handlePick"></view>
+            <text class='page-list-font'>控件</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import mpx,{ createComponent } from '@mpxjs/core'
+
+  createComponent({
+    data: {
+      listData: ['手机', '电视', '电脑'],
+      indicatorDots: true,
+      indicatorColor: 'rgba(0,0,0,.3)',
+      indicatorActiveColor: '#0fa0f1',
+      autoplay: true,
+      current: 1,
+      interval: 3000,
+      duration: 500,
+      circular: true,
+      vertical: false
+    },
+    methods:{
+      handleTap(){
+       mpx.navigateTo({
+        url: '../pages/pagination/index',
+      })
+      },
+      handleList(){
+      mpx.navigateTo({
+        url: '../pages/list/index',
+      })
+      },
+      handleForm(){
+      mpx.navigateTo({
+        url: '../pages/form/index',
+      })
+      },
+      handlePick(){
+      mpx.navigateTo({
+        url: '../pages/pick/index',
+      })
+      }
+    }
+
+  })
+</script>
+
+<style lang="stylus">
+  .list
+    width calc(100% - 30rpx)
+    padding 15rpx
+  .page-list
+    height 260rpx
+    margin 10rpx 0rpx  0rpx 0rpx
+    width 100%
+    background-color rgba(12, 138, 241, 0.938)
+    display flex
+    flex-direction row
+    .page-list-1
+      display flex
+      flex 1
+      flex-direction column
+      justify-content center
+      align-items center
+      padding 10rpx 10rpx
+      .page-list-2
+        width 135rpx
+        height 135rpx
+        background-color white
+        border-radius 8rpx
+    .page-list-font
+      margin 20rpx 0rpx 0rpx 0rpx
+      font-size 32rpx
+
+</style>
+
+<script name='json'>
+   module.exports = {
+    component: true
+  }
+</script>
