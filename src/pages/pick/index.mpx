@@ -35,8 +35,8 @@
           main-active-index="{{ mainActiveIndex }}"
           active-id="{{ activeId }}"
           max="{{ max }}"
-          bind:click-nav="onClickNav"
-          bind:click-item="onClickItem"
+          wx:click-nav="onClickNav"
+          wx:click-item="onClickItem"
         />
     </view>
 
