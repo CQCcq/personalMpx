@@ -2,10 +2,10 @@
 <view class="page">
       <view>
           <view wx:if="{{__mpx_mode__ === 'wx' || 'ali'}}">
-             <v-button >列表页</v-button>
+             <v-button type="primary" size="small">列表页</v-button>
           </view>
          <view wx:else-if="{{__mpx_mode__ === 'ali'}}">
-            <button type="ghost">列表页</button>
+            <!-- <button type="ghost">列表页</button> -->
          </view>
             <view class="pageList">
                 <view wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="listPic">
@@ -61,8 +61,14 @@
 const pages = __mpx_mode__ === 'wx' ? [
   "vant-weapp/dist/button/index"
 ] : [
-    "mini-ali-ui/es/button/index"
-] // 可以为不同环境动态书写配置
+   "../../components/ivewali/dist/dist/button/index",
+   "mini-ali-ui/es/button/index"
+] 
+// 可以为不同环境动态书写配置
+// "../../components/ivewali/dist/dist/button/index"
+ // "../../components/ivewali/dist/dist/button/index"
+  //D:\mpx\project-one\src\components\ivewali\alipay\view-alipay\dist\button\index.axml
+    // "mini-ali-ui/es/button/index"
   module.exports = {
     usingComponents: {
       "v-button": pages[0]
