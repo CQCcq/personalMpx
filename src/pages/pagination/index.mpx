@@ -6,8 +6,10 @@
           class="scrollView" 
           scroll-x="{{scrollX}}"
           scroll-y="{{scrollY}}"
+          upper-threshold="{{30}}"
           refresher-enabled="{{refresherenabled}}"
           refresher-threshold="{{30}}"
+          bindrefresherrestore="bindrefsherrestore"
           refresher-default-style="none"
           refresher-background="lightgreen"
           bindscrolltoupper="bindscrolltoupper">
@@ -61,6 +63,9 @@
       },
       bindscrolltoupper(e){
         console.log("触顶",e);
+      },
+      bindrefsherrestore(e){
+        console.log("下拉刷新复位",e);
       }
     }
   })

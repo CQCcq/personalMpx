@@ -1,7 +1,12 @@
 <template>
 <view class="page">
       <view>
-            <v-button plain type="primary" bindtap="getList">列表页</v-button>
+          <view wx:if="{{__mpx_mode__ === 'wx' || 'ali'}}">
+             <v-button >列表页</v-button>
+          </view>
+         <view wx:else-if="{{__mpx_mode__ === 'ali'}}">
+            <button type="ghost">列表页</button>
+         </view>
             <view class="pageList">
                 <view wx:for="{{listData}}" wx:for-item="item" wx:for-index="index" wx:key="index" class="listPic">
                     <view>
@@ -53,9 +58,14 @@
 </script>
 
 <script name="json">
+const pages = __mpx_mode__ === 'wx' ? [
+  "vant-weapp/dist/button/index"
+] : [
+    "mini-ali-ui/es/button/index"
+] // 可以为不同环境动态书写配置
   module.exports = {
     usingComponents: {
-      "v-button": "vant-weapp/dist/button/index"
+      "v-button": pages[0]
     }
   }
 </script>

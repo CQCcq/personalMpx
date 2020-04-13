@@ -45,7 +45,7 @@ const webpackConf = {
   },
   mode: 'none',
   resolve: {
-    extensions: ['.mpx', '.js', '.wxml'],
+    extensions: ['.mpx', '.js', '.wxml','.axml'],
     modules: ['node_modules']
   }
 }

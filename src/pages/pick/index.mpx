@@ -1,8 +1,8 @@
 <template>
 <view class="page">
        
-       
-  <van-slider
+  <view wx:if="{{__mpx_mode__ === 'wx'}}">
+<van-slider
   value="{{currentValue}}"
   bar-height="4px"
   active-color="#ee0a24"
@@ -39,6 +39,7 @@
           bind:click-item="onClickItem"
         />
     </view>
+  </view>
 
   </view>
 </template>
@@ -83,31 +84,45 @@
     onLoad () {},
     methods:{
       onDrag(event) {
-     
-      this.currentValue = event.detail.value
+        if(__mpx_mode__ === 'wx') {
+             this.currentValue = event.detail.value
+        }
     
       },
       onChange(event) {
-        console.log('多少',event);
+        if(__mpx_mode__ === 'wx') {
+              console.log('多少',event);
       const { picker, value, index } = event.detail;
       Toast(`当前值：${value}, 当前索引：${index}`);
+        }
     },
     onRate(event){
-        this.pickerRate = event.detail
+         if(__mpx_mode__ === 'wx') {
+             this.pickerRate = event.detail
+        }
+      
     },
     getList(){
-      Dialog.alert({
+        if(__mpx_mode__ === 'wx') {
+             Dialog.alert({
         title: '标题',
         message: '弹窗内容'
         }).then(() => {
         // on close
         });
+        }
     },
       onClickNav({ detail = {} }) {
-        console.log('什么东西',detail);
+           if(__mpx_mode__ === 'wx') {
+            console.log('什么东西',detail);
           this.mainActiveIndex = detail.index || 0
+        }
       },
       onClickItem({ detail = {} }) {
+             if(__mpx_mode__ === 'wx') {
+            console.log('什么东西',detail);
+          this.mainActiveIndex = detail.index || 0
+        }
         const { activeId } = this.data;
 
         const index = activeId.indexOf(detail.id);
@@ -125,14 +140,24 @@
 </script>
 
 <script name="json">
+const pages = __mpx_mode__ === 'wx' ? [
+  "vant-weapp/dist/slider/index",
+  "vant-weapp/dist/picker/index",
+  "vant-weapp/dist/rate/index",
+  "vant-weapp/dist/dialog/index",
+  "vant-weapp/dist/button/index",
+  "vant-weapp/dist/tree-select/index"
+] : [
+  
+] // 可以为不同环境动态书写配置
   module.exports = {
     usingComponents: {
-      "van-slider": "vant-weapp/dist/slider/index",
-      "van-picker": "vant-weapp/dist/picker/index",
-      "van-rate": "vant-weapp/dist/rate/index",
-      "van-dialog": "vant-weapp/dist/dialog/index",
-      "van-button": "vant-weapp/dist/button/index",
-      "van-tree-select": "vant-weapp/dist/tree-select/index"
+      "van-slider": pages[0],
+      "van-picker": pages[1],
+      "van-rate": pages[2],
+      "van-dialog": pages[3],
+      "van-button": pages[4],
+      "van-tree-select": pages[5]
     }
   }
 </script>

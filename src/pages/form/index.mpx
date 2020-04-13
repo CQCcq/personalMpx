@@ -1,6 +1,6 @@
 <template>
 <view>
-  <view>
+  <view  wx:if="{{__mpx_mode__ === 'wx'}}">
       <van-panel title="标题" desc="描述信息" status="状态" use-footer-slot>
       <view>
          <v-cell title="这是一个vant的cell" border="{{true}}"></v-cell>
@@ -71,12 +71,20 @@
 </script>
 
 <script name="json">
+const pages = __mpx_mode__ === 'wx' ? [
+  "vant-weapp/dist/panel/index",
+  "vant-weapp/dist/button/index",
+  "vant-weapp/dist/cell/index",
+  "vant-weapp/dist/field/index"
+] : [
+  
+] // 可以为不同环境动态书写配置
   module.exports = {
     usingComponents: {
-   "van-panel": "vant-weapp/dist/panel/index",
-    "van-button": "vant-weapp/dist/button/index",
-    "v-cell": "vant-weapp/dist/cell/index",
-    "van-field": "vant-weapp/dist/field/index"
+   "van-panel": pages[0],
+    "van-button": pages[1],
+    "v-cell": pages[2],
+    "van-field": pages[3]
     }
   }
 </script>

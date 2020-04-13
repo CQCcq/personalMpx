@@ -1,4 +1,9 @@
 const path = require('path')
+const MpxWebpackPlugin = require('@mpxjs/webpack-plugin')
+
+function resolve (dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 // 可以在此配置mpx webpack plugin，会assign进build.js里new创建plugin的config里
 module.exports = {
@@ -15,7 +20,48 @@ module.exports = {
   enableAutoScope: false,
 
   // 批量指定文件mode，和webpack的rules相同
-  modeRules: {},
+  modeRules: {
+    rules:[
+      // {
+      //   // 对某些第三方组件库另设转换规则
+      //   mode: 'wx',
+      //   designWidth: 375,
+      //   include: resolve('node_modules/vant-weapp')
+      // },
+      // {
+      //   // 对某些第三方组件库另设转换规则
+      //   mode: 'ali',
+      //   designWidth: 375,
+      //   include: resolve('node_modules/mini-ali-ui')
+      // }
+
+      //上面是下面copy的
+
+
+      {
+        test: /\.mpx$/,
+        use: MpxWebpackPlugin.loader({
+          transRpx: [{
+            mode: 'only',
+            comment: 'use rpx',
+            include: resolve('src')
+          },
+          {
+            // 对某些第三方组件库另设转换规则
+            mode: 'wx',
+            designWidth: 375,
+            include: resolve('node_modules/vant-weapp')
+          },
+          {
+            // 对某些第三方组件库另设转换规则
+            mode: 'ali',
+            designWidth: 375,
+            include: resolve('node_modules/mini-ali-ui')
+          } ]
+        })
+      }
+    ]
+  },
 
   // 给模板和json中定义一些全局环境变量
   defs: {},

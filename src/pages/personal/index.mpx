@@ -41,19 +41,38 @@
     },
     methods:{
       init(){
-          mpx.getLocation({
-          type: 'gcj02', //返回可以用于wx.openLocation的经纬度
+        if(__mpx_mode__ === 'wx'){
+            mpx.getLocation({
+          type: __mpx_mode__ === 'wx'?'gcj02':1, //返回可以用于wx.openLocation的经纬度
           success (res) {
             console.log('我在哪？',res);
           const latitude = res.latitude
           const longitude = res.longitude
-            mpx.openLocation({
+           if(__mpx_mode__ === 'wx'){
+              mpx.openLocation({
             latitude,
             longitude,
             scale: 18
             })
-          }
+           }
+          },
+        fail() {
+        mpx.hideLoading();
+        mpx.alert({ title: '定位失败' });
+      },
+
           })
+        }else {
+          mpx.getLocation({
+            aliType:1,
+            success (res) {
+              console.log("成功了",res);
+            },
+            fail(res){
+              console.log("失败了",res);
+            }
+          })
+        }
       }
     }
   })

@@ -26,11 +26,26 @@ const webpackConfigArr = []
 const userSelectedMode = 'wx'
 
 const mpxLoaderConfig = {
-  transRpx: {
-    mode: 'only',
-    comment: 'use rpx',
-    include: resolve('src')
-  }
+  transRpx: 
+   [
+    {
+      mode: 'only',
+      comment: 'use rpx',
+      include: resolve('src')
+    },
+    {
+      // 对某些第三方组件库另设转换规则
+      mode: 'wx',
+      designWidth: 375,
+      include: resolve('node_modules/vant-weapp')
+    },
+    {
+      // 对某些第三方组件库另设转换规则
+      mode: 'ali',
+      designWidth: 375,
+      include: resolve('node_modules/mini-ali-ui')
+    }
+   ]
 }
 
 const transModuleRules = [
