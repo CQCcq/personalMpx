@@ -44,12 +44,12 @@ const mpxLoaderConfig = {
       mode: 'ali',
       designWidth: 375,
       include: resolve('node_modules/mini-ali-ui')
+    },
+    {
+      mode: 'ali',
+      designWidth: 375,
+      include: resolve('node_modules/ivewali')
     }
-   // {
-    //   mode: 'ali',
-    //   designWidth: 375,
-    //   include: resolve('src/components/ivewali')
-    // }
    ]
 }
 

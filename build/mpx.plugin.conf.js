@@ -21,14 +21,10 @@ module.exports = {
 
   // 批量指定文件mode，和webpack的rules相同
   modeRules: {
-    ali: 
-     {
-      include: [/mini-ali-ui/]
+    ali:
+    {
+      include: [/ivewali/,/mini-ali-ui/]
     }
-    // ali:
-    // {
-    //   include: [/ivewali/]
-    // }
   },
   // modeRules: {
     
